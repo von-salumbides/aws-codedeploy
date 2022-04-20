@@ -10,14 +10,12 @@ pipeline {
           gitToolName: 'git-tool')]) {
           sh "make ${TF_CMD}"
         }
-        script {
-        currentBuild.displayName = "tf-command-${TF_CMD}"
-        }
       }
     }
   } 
   post {
     always {
+      currentBuild.displayName = "tf-command-${TF_CMD}"
       cleanWs()
     }
   }
