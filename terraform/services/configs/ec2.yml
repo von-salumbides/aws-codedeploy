@@ -1,6 +1,6 @@
 ami:
-  ami_owner: "amazon"
-  ami_filter_name: "amzn2-ami-hvm-x86_64-gp2*"
+  ami_owner: "137112412989"
+  ami_filter_name: "amzn2-ami-hvm-2.0*-x86_64-ebs"
 my-server:
   - name: "main"
     instance_type: "t2.micro"
