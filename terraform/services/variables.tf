@@ -10,7 +10,7 @@ variable "owner" {
 }
 
 variable "env" {
-  default = "dev"
+  default = "poc"
 }
 
 variable "region" {
