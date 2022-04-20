@@ -3,7 +3,10 @@ pipeline {
   stages {
     stage ('Deploy') {
       steps {
-        sh "make ${TF_CMD}"
+        withCredentials([gitUsernamePassword(credentialsId: 'von-salumbides',
+          gitToolName: 'git-tool')]) {
+          sh "make ${TF_CMD}"
+        }
       }
     }
   }
