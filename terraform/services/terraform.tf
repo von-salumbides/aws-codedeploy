@@ -1,5 +1,11 @@
 terraform {
   required_version = ">= 1.1.7"
+  backend "s3" {
+    encrypt = "true"
+    bucket  = "devops-poc-bucket"
+    region  = "us-east-2"
+    key     = "tf/devops-dev.tfstate"
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -10,12 +16,6 @@ terraform {
 
 provider "aws" {
   region = var.region
-  backend "s3" {
-    encrypt = "true"
-    bucket  = "devops-poc-bucket"
-    region  = "us-east-2"
-    key     = "tf/devops-dev.tfstate"
-  }
   default_tags {
     tags = {
       APPLICATION = upper(var.project)
