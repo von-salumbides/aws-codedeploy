@@ -1,0 +1,44 @@
+ALB:
+  - from_port: 80
+    to_port: 80
+    protocol: tcp
+    cidr_blocks: 0.0.0.0/0
+    cidr_blocks_bool: true
+    source_id: null
+    source_id_bool: false
+    description: "Allow inbound"
+  - from_port: 443
+    to_port: 443
+    protocol: tcp
+    cidr_blocks: 0.0.0.0/0
+    cidr_blocks_bool: true
+    source_id: null
+    source_id_bool: false
+    description: "Allow inbound"
+
+EC2:
+  - from_port: 80
+    to_port: 80
+    protocol: tcp
+    cidr_blocks: 0.0.0.0/0
+    cidr_blocks_bool: true
+    source_id: null
+    source_id_bool: false
+    description: "Allow inbound"
+    
+  # - from_port: 443
+  #   to_port: 443
+  #   protocol: tcp
+  #   cidr_blocks: null
+  #   cidr_blocks_bool: false
+  #   source_id: ALB
+  #   source_id_bool: true
+  #   description: "Allow inbound"
+  # - from_port: 80
+  #   to_port: 80
+  #   protocol: tcp
+  #   cidr_blocks: null
+  #   cidr_blocks_bool: false
+  #   source_id: ALB
+  #   source_id_bool: true
+  #   description: "Allow inbound"

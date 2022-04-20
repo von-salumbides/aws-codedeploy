@@ -1,0 +1,13 @@
+ami:
+  ami_owner: "amazon"
+  ami_filter_name: "amzn2-ami-hvm-x86_64-gp2*"
+my-server:
+  - name: "main"
+    instance_type: "t2.micro"
+    delete_on_termination: true
+    associate_public_ip_address: true
+    key_name: "DevOps_POC"
+    volume_size: 20
+    volume_type: "gp2"
+    monitoring: false
+
