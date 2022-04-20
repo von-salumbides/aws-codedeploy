@@ -11,14 +11,14 @@ validate: fmt
 	terraform $(TF_DIR_CMD)  validate 
 workspace:
 	terraform $(TF_DIR_CMD) workspace new $(ENVIRONMENT) >/dev/null 2>&1 || terraform $(TF_ACCT_CMD) workspace select $(ENVIRONMENT)
-plan: workspace init validate 
+plan: init validate 
 	terraform $(TF_DIR_CMD) plan \
 	$(TF_ACCT_CMD)
-apply: workspace init validate 
+apply: init validate 
 	terraform $(TF_DIR_CMD) apply \
 	-auto-approve \
 	$(TF_ACCT_CMD)
-destroy: workspace init validate 
+destroy: init validate 
 	terraform $(TF_DIR_CMD) destroy \
 	-auto-approve \
 	$(TF_ACCT_CMD)
