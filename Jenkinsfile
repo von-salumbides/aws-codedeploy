@@ -11,7 +11,7 @@ pipeline {
           sh "make ${TF_CMD}"
         }
         script {
-          currentBuild.displayName = "tf-command-${TF_CMD}"
+          currentBuild.displayName = "${TF_CMD}"
         }
       }
     }
