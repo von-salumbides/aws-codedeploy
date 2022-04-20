@@ -10,6 +10,12 @@ terraform {
 
 provider "aws" {
   region = var.region
+  backend "s3" {
+    encrypt = "true"
+    bucket  = "devops-poc-bucket"
+    region  = "us-east-2"
+    key     = "tf/devops-dev.tfstate"
+  }
   default_tags {
     tags = {
       APPLICATION = upper(var.project)
