@@ -4,7 +4,7 @@ TF_ACCT_CMD=-var="aws_account=$(AWS_ACCOUNT_ID)"
 upgrade:
 	terraform $(TF_DIR_CMD)  init -upgrade $(TF_ACCT_CMD)
 init:
-	terraform $(TF_DIR_CMD)  init $(TF_ACCT_CMD)
+	terraform $(TF_DIR_CMD)  init $(TF_ACCT_CMD) -backend-config="bucket=${STATE_BUCKET}"
 fmt:
 	terraform $(TF_DIR_CMD)  fmt 
 validate: fmt
