@@ -12,15 +12,15 @@ pipeline {
         script {
           try {
             step([$class: 'AWSCodeDeployPublisher',
-              applicationName: "${CODEDEPLOY_APP_NAME}",
-              deploymentConfig: 'CodeDeployDefault.AllAtOnce',
+              applicationName:        "${CODEDEPLOY_APP_NAME}",
+              deploymentGroupName:    "${CODEDEPLOY_GROUP_NAME}",
+              s3bucket:               "${CODEDEPLOY_S3_BUCKET}",
+              s3prefix:               "${CODEDEPLOY_S3_PREFIX}",
+              deploymentConfig:       'CodeDeployDefault.AllAtOnce',
+              region:                 'us-east-2',
               deploymentGroupAppspec: false,
-              deploymentGroupName: "${CODEDEPLOY_GROUP_NAME}",
-              region: 'us-east-2',
-              s3bucket: "${CODEDEPLOY_S3_BUCKET}",
-              s3prefix: "${CODEDEPLOY_S3_PREFIX}",
-              waitForCompletion: true,
-              pollingTimeoutSec: "3600"])
+              waitForCompletion:      true,
+              pollingTimeoutSec:      "3600"])
           }
             catch(e){
               println("Deployment failed")
