@@ -30,7 +30,7 @@ pipeline {
             }
           }
             catch(e){
-              println("Deployment failed")
+              println(e)
             throw e
           }
         }
