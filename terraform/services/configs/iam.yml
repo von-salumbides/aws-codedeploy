@@ -1,2 +1,3 @@
 trust_services:
  - ec2
+ - codedeploy
