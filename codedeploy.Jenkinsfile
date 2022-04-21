@@ -14,7 +14,8 @@ pipeline {
       steps {
         script {
           try {
-            step([$class: 'AWSCodeDeployPublisher',
+            withAWS(roleAccount: AWS_ACCOUNT_ID, role: AWS_ACCOUNT_ROLE) {
+              step([$class: 'AWSCodeDeployPublisher',
               applicationName:        "${CODEDEPLOY_APP_NAME}",
               deploymentGroupName:    "${CODEDEPLOY_GROUP_NAME}",
               s3bucket:               "${CODEDEPLOY_S3_BUCKET}",
@@ -24,6 +25,7 @@ pipeline {
               deploymentGroupAppspec: false,
               waitForCompletion:      true,
               pollingTimeoutSec:      "3600"])
+            }
           }
             catch(e){
               println("Deployment failed")
