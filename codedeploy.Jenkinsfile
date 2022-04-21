@@ -24,6 +24,7 @@ pipeline {
               region:                 'us-east-2',
               deploymentGroupAppspec: false,
               waitForCompletion:      true,
+              iamRoleArn:             "${IAM_ROLE_ARN}"
               pollingTimeoutSec:      "3600"])
             }
           }
