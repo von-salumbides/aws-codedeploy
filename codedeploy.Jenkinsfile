@@ -10,6 +10,8 @@ pipeline {
         CODEDEPLOY_GROUP_NAME = "devops-poc"
         CODEDEPLOY_S3_BUCKET  = "devops-poc-bucket"
         CODEDEPLOY_S3_PREFIX  = "codedeploy"
+        AWS_ACCOUNT_ID        = "${AWS_ACCOUNT_ID}"
+        AWS_ACCOUNT_ROLE      = "${AWS_ACCOUNT_ROLE}"
       }
       steps {
         script {
