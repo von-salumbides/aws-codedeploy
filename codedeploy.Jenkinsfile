@@ -10,8 +10,6 @@ pipeline {
         CODEDEPLOY_GROUP_NAME = "devops-poc"
         CODEDEPLOY_S3_BUCKET  = "devops-poc-bucket"
         CODEDEPLOY_S3_PREFIX  = "codedeploy"
-        AWS_ACCOUNT_ID        = "${AWS_ACCOUNT_ID}"
-        AWS_ACCOUNT_ROLE      = "${AWS_ACCOUNT_ROLE}"
       }
       steps {
         script {
@@ -25,7 +23,8 @@ pipeline {
             region:                 'us-east-2',
             deploymentGroupAppspec: false,
             waitForCompletion:      true,
-            iamRoleArn:             "${IAM_ROLE_ARN}",
+            awsAccessKey:           "${AWS_ACCESS_KEY_ID}"
+            awsSecretKey:           "${AWS_SECRET_KEY}"
             pollingTimeoutSec:      "3600"])
           }
             catch(e){
