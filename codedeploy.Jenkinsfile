@@ -10,22 +10,24 @@ pipeline {
         CODEDEPLOY_GROUP_NAME = "devops-poc"
         CODEDEPLOY_S3_BUCKET  = "devops-poc-bucket"
         CODEDEPLOY_S3_PREFIX  = "codedeploy"
+        AWS_ACCOUNT_ID        = "${AWS_ACCOUNT_ID}"
+        AWS_ACCOUNT_ROLE      = "${AWS_ACCOUNT_ROLE}"
       }
       steps {
         script {
           try {
-            step([$class: 'AWSCodeDeployPublisher',
-            applicationName:        "${CODEDEPLOY_APP_NAME}",
-            deploymentGroupName:    "${CODEDEPLOY_GROUP_NAME}",
-            s3bucket:               "${CODEDEPLOY_S3_BUCKET}",
-            s3prefix:               "${CODEDEPLOY_S3_PREFIX}",
-            deploymentConfig:       'CodeDeployDefault.AllAtOnce',
-            region:                 'us-east-2',
-            deploymentGroupAppspec: false,
-            waitForCompletion:      true,
-            awsAccessKey:           "${AWS_ACCESS_KEY_ID}",
-            awsSecretKey:           "${AWS_SECRET_KEY}",
-            pollingTimeoutSec:      "3600"])
+            withAWS(roleAccount: AWS_ACCOUNT_ID, role: AWS_ACCOUNT_ROLE) {
+              step([$class: 'AWSCodeDeployPublisher',
+              applicationName:        "${CODEDEPLOY_APP_NAME}",
+              deploymentGroupName:    "${CODEDEPLOY_GROUP_NAME}",
+              s3bucket:               "${CODEDEPLOY_S3_BUCKET}",
+              s3prefix:               "${CODEDEPLOY_S3_PREFIX}",
+              deploymentConfig:       'CodeDeployDefault.AllAtOnce',
+              region:                 'us-east-2',
+              deploymentGroupAppspec: false,
+              waitForCompletion:      true,
+              pollingTimeoutSec:      "3600"])
+            }
           }
             catch(e){
               println("Deployment failed")
