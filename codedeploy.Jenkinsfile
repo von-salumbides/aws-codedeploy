@@ -23,8 +23,8 @@ pipeline {
             region:                 'us-east-2',
             deploymentGroupAppspec: false,
             waitForCompletion:      true,
-            awsAccessKey:           "${AWS_ACCESS_KEY_ID}"
-            awsSecretKey:           "${AWS_SECRET_KEY}"
+            awsAccessKey:           "${AWS_ACCESS_KEY_ID}",
+            awsSecretKey:           "${AWS_SECRET_KEY}",
             pollingTimeoutSec:      "3600"])
           }
             catch(e){
