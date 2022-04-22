@@ -2,6 +2,7 @@ pipeline {
   agent any 
   options {
     ansiColor("xterm")
+    withAWS(credentials: 'AWS_ACCESS_KEY_ID', region: 'us-east-2')
   }
   stages {
     stage("Deploy") {
@@ -15,20 +16,18 @@ pipeline {
       steps {
         script {
           try {
-            withAWS(roleAccount: AWS_ACCOUNT_ID, role: AWS_ACCOUNT_ROLE) {
-              createDeployment(
-                s3Bucket: "${CODEDEPLOY_S3_BUCKET}",
-                s3Key: "artifacts/${VERSION_TAG}.zip",
-                s3BundleType: 'zip', // [Valid values: tar | tgz | zip | YAML | JSON]
-                applicationName: "${CODEDEPLOY_APP_NAME}",
-                deploymentGroupName: "${CODEDEPLOY_GROUP_NAME}",
-                deploymentConfigName: 'CodeDeployDefault.AllAtOnce',
-                description: 'codedeploy deployment',
-                waitForCompletion: 'true',
-                ignoreApplicationStopFailures: 'false',
-                fileExistsBehavior: 'OVERWRITE'
-              )
-            }
+            createDeployment(
+              s3Bucket: "${CODEDEPLOY_S3_BUCKET}",
+              s3Key: "artifacts/${VERSION_TAG}.zip",
+              s3BundleType: 'zip', // [Valid values: tar | tgz | zip | YAML | JSON]
+              applicationName: "${CODEDEPLOY_APP_NAME}",
+              deploymentGroupName: "${CODEDEPLOY_GROUP_NAME}",
+              deploymentConfigName: 'CodeDeployDefault.AllAtOnce',
+              description: 'codedeploy deployment',
+              waitForCompletion: 'true',
+              ignoreApplicationStopFailures: 'false',
+              fileExistsBehavior: 'OVERWRITE'
+            )
           }
             catch(e){
               println(e)
