@@ -16,7 +16,7 @@ pipeline {
       steps {
         script {
           try {
-            createDeployment(
+            DEPLOY_ID = createDeployment(
               s3Bucket: "${CODEDEPLOY_S3_BUCKET}",
               s3Key: "artifacts/${VERSION_TAG}.zip",
               s3BundleType: 'zip', // [Valid values: tar | tgz | zip | YAML | JSON]
