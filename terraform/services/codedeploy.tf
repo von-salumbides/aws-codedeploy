@@ -18,7 +18,7 @@ resource "aws_codedeploy_deployment_group" "this" {
     ec2_tag_filter {
       key   = "APPLICATION"
       type  = "KEY_AND_VALUE"
-      value = "COMMON"
+      value = "DEVOPS"
     }
   }
 
