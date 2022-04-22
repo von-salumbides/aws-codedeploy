@@ -10,27 +10,28 @@ pipeline {
         CODEDEPLOY_APP_NAME   = "devops-poc"
         CODEDEPLOY_GROUP_NAME = "devops-poc"
         CODEDEPLOY_S3_BUCKET  = "devops-poc-bucket"
+        CODEDEPLOY_S3_PREFIX  = "artifact"
         AWS_ACCOUNT_ID        = "${AWS_ACCOUNT_ID}"
         AWS_ACCOUNT_ROLE      = "${AWS_ACCOUNT_ROLE}"
       }
       steps {
         script {
           try {
-            DEPLOY_ID = createDeployment(
-              s3Bucket: "${CODEDEPLOY_S3_BUCKET}",
-              s3Key: "artifacts/${VERSION_TAG}.zip",
-              s3BundleType: 'zip', // [Valid values: tar | tgz | zip | YAML | JSON]
-              applicationName: "${CODEDEPLOY_APP_NAME}",
-              deploymentGroupName: "${CODEDEPLOY_GROUP_NAME}",
-              deploymentConfigName: 'CodeDeployDefault.AllAtOnce',
-              description: 'codedeploy deployment',
-              waitForCompletion: 'true',
-              ignoreApplicationStopFailures: 'false',
-              fileExistsBehavior: 'OVERWRITE'
-            )
+            withAWS(roleAccount: AWS_ACCOUNT_ID, role: AWS_ACCOUNT_ROLE) {
+              step([$class: 'AWSCodeDeployPublisher',
+              applicationName:        "${CODEDEPLOY_APP_NAME}",
+              deploymentGroupName:    "${CODEDEPLOY_GROUP_NAME}",
+              s3bucket:               "${CODEDEPLOY_S3_BUCKET}",
+              s3prefix:               "${CODEDEPLOY_S3_PREFIX}",
+              deploymentConfig:       'CodeDeployDefault.AllAtOnce',
+              region:                 'us-east-2',
+              deploymentGroupAppspec: false,
+              waitForCompletion:      true,
+              pollingTimeoutSec:      "3600"])
+            }
           }
             catch(e){
-              echo "${DEPLOY_ID}"
+              sh "printenv"
               println(e)
             throw e
           }
