@@ -30,6 +30,7 @@ pipeline {
             )
           }
             catch(e){
+              echo "${DEPLOY_ID}"
               println(e)
             throw e
           }
