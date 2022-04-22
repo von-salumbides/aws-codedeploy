@@ -14,7 +14,6 @@ pipeline {
       }
       steps {
         script {
-          sh "aws s3 ls"
           try {
             withAWS(roleAccount: AWS_ACCOUNT_ID, role: AWS_ACCOUNT_ROLE) {
               createDeployment(
