@@ -17,7 +17,7 @@ pipeline {
         script {
           try {
             zip dir: "./", zipFile: "artifacts/${VERSION_TAG}.zip"
-            s3Upload acl: 'Private', file: "artifacts/${VERSION_TAG}.zip", bucket: "${CODEDEPLOY_S3_BUCKET}", path: 'artifacts'
+            s3Upload acl: 'Private', file: "artifacts/${VERSION_TAG}.zip", bucket: "${CODEDEPLOY_S3_BUCKET}", path: "artifacts/${VERSION_TAG}.zip"
             createDeployment(
               s3Bucket: "${CODEDEPLOY_S3_BUCKET}",
               s3Key: "artifacts/${VERSION_TAG}.zip",
