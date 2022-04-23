@@ -1,12 +1,12 @@
 module "codedeploy" {
-  source  = "git::https://github.com/von-salumbides/terraform-module.git//aws-codedeploy-app"
+  source  = "git::https://github.com/von-salumbides/terraform-module.git//aws-codedeploy-app?ref=v0.1.1"
   env     = var.env
   project = var.project
   # compute_platform = "" // isDefined ? var.compute_platform : default==Server
 }
 
 module "codedeploy-group" {
-  source       = "git::https://github.com/von-salumbides/terraform-module.git//aws-codedeploy-deploymentgroup-ec2"
+  source       = "git::https://github.com/von-salumbides/terraform-module.git//aws-codedeploy-deploymentgroup-ec2?ref=v0.1.1"
   env          = var.env
   project      = var.project
   purpose      = "ec2"

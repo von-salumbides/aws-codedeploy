@@ -1,5 +1,5 @@
 module "instance" {
-  source                 = "git::https://github.com/von-salumbides/terraform-module.git//aws-instance"
+  source                 = "git::https://github.com/von-salumbides/terraform-module.git//aws-instance?ref=v0.1.1"
   project                = var.project
   env                    = var.env
   ami_config             = "ami"
