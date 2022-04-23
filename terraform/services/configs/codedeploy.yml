@@ -1,0 +1,7 @@
+ec2_tag_filter:
+  - key: "APPLICATION"
+    type: "KEY_AND_VALUE"
+    value: "DEVOPS"
+  - key: "COST_CENTER"
+    type: "KEY_AND_VALUE"
+    value: "COMMON"
