@@ -11,6 +11,6 @@ module "codedeploy-group" {
   project      = var.project
   purpose      = "ec2"
   config       = "ec2_tag_filter"
-  iam-role-ec2 = module.iam-role-ec2.id
+  iam-role-ec2 = module.iam-role-ec2.arn
   app_name     = module.codedeploy.name
 }
