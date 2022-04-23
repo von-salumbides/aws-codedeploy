@@ -17,7 +17,7 @@ pipeline {
         script {
           try {
             zip dir: "./", zipFile: "artifacts/${VERSION_TAG}.zip"
-            s3Upload acl: 'Private', bucket: "${CODEDEPLOY_S3_BUCKET}", file: "artifacts/${VERSION_TAG}.zip", path: 'artifacts'
+            s3Upload acl: 'Private', file: "artifacts/${VERSION_TAG}.zip", bucket: "${CODEDEPLOY_S3_BUCKET}", path: 'artifacts'
             createDeployment(
               s3Bucket: "${CODEDEPLOY_S3_BUCKET}",
               s3Key: "artifacts/${VERSION_TAG}.zip",
@@ -25,7 +25,7 @@ pipeline {
               applicationName: "${CODEDEPLOY_APP_NAME}",
               deploymentGroupName: "${CODEDEPLOY_GROUP_NAME}",
               deploymentConfigName: 'CodeDeployDefault.AllAtOnce',
-              description: 'codedeploy deployment',
+              description: "Deployment Version ${VERSION_TAG}",
               waitForCompletion: 'true',
               ignoreApplicationStopFailures: 'false',
               fileExistsBehavior: 'OVERWRITE'
