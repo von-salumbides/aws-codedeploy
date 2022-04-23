@@ -16,8 +16,10 @@ pipeline {
       steps {
         script {
           try {
-            zip dir: "./", zipFile: "artifacts/${VERSION_TAG}.zip"
-            s3Upload acl: 'Private', file: "artifacts/${VERSION_TAG}.zip", bucket: "${CODEDEPLOY_S3_BUCKET}", path: "artifacts/${VERSION_TAG}.zip"
+            if ( ROLL_BACK == "no" ) {
+              zip dir: "./", zipFile: "artifacts/${VERSION_TAG}.zip"
+              s3Upload acl: 'Private', file: "artifacts/${VERSION_TAG}.zip", bucket: "${CODEDEPLOY_S3_BUCKET}", path: "artifacts/${VERSION_TAG}.zip"
+            }
             createDeployment(
               s3Bucket: "${CODEDEPLOY_S3_BUCKET}",
               s3Key: "artifacts/${VERSION_TAG}.zip",
@@ -28,7 +30,7 @@ pipeline {
               description: "Deployment Version ${VERSION_TAG}",
               waitForCompletion: 'true',
               ignoreApplicationStopFailures: 'false',
-              fileExistsBehavior: 'OVERWRITE'
+              fileExistsBehavior: 'DISALLOW'
             )
           }
             catch(e){
