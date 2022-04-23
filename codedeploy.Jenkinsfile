@@ -16,7 +16,7 @@ pipeline {
       steps {
         script {
           try {
-            if ( ROLL_BACK == "no" ) {
+            if ( "${ROLL_BACK}" == "no" ) {
               zip dir: "./", zipFile: "artifacts/${VERSION_TAG}.zip"
               s3Upload acl: 'Private', file: "artifacts/${VERSION_TAG}.zip", bucket: "${CODEDEPLOY_S3_BUCKET}", path: "artifacts/${VERSION_TAG}.zip"
             }
