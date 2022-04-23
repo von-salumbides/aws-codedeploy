@@ -20,7 +20,7 @@ pipeline {
               zip dir: "./", zipFile: "artifacts/${VERSION_TAG}.zip"
               s3Upload acl: 'Private', file: "artifacts/${VERSION_TAG}.zip", bucket: "${CODEDEPLOY_S3_BUCKET}", path: "artifacts/${VERSION_TAG}.zip"
             }
-            createDeployment(
+            DEPLOY_ID = createDeployment(
               s3Bucket: "${CODEDEPLOY_S3_BUCKET}",
               s3Key: "artifacts/${VERSION_TAG}.zip",
               s3BundleType: 'zip', // [Valid values: tar | tgz | zip | YAML | JSON]
@@ -32,6 +32,7 @@ pipeline {
               ignoreApplicationStopFailures: 'false',
               fileExistsBehavior: 'DISALLOW'
             )
+            echo "${DEPLOY_ID}"
           }
             catch(e){
               sh "printenv"
